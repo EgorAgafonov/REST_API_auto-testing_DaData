@@ -1,5 +1,6 @@
 """Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для формирования тестовых
-запросов импортирована библиотека от разработчика сервиса - Dadata."""
+запросов импортирована библиотека Dadata от разработчика сервиса."""
+
 import httpx
 import requests
 from dadata import Dadata
@@ -24,18 +25,24 @@ Dd = Dadata(token, secret)
 #     assert response['house_type'] == 'д'
 #     assert response['postal_code'] == '111399'
 
-def test_get_address_info_invalid_data():
-    """Негативный тест с не валидными данными на проверку post-запроса к услуге "Разбор адреса из строки
-    («стандартизация») api-сервиса https://dadata.ru/. Тестируется отправка и обработка post-запроса с некорретными
-    ключами token и secret. Валидация негативного теста считается успешной, если ответ сервера вызывает тип исключения
-    HTTPStatusError (сервер понял запрос, но отказывается его авторизовать). """
+# def test_get_address_info_invalid_data():
+#     """Негативный тест с не валидными данными на проверку post-запроса к услуге "Разбор адреса из строки
+#     («стандартизация») api-сервиса https://dadata.ru/. Тестируется отправка и обработка post-запроса с некорретными
+#     ключами token и secret. Валидация негативного теста считается успешной, если ответ сервера вызывает тип исключения
+#     HTTPStatusError (сервер понял запрос, но отказывается его авторизовать). """
+#
+#     Dd = Dadata(invalid_token, invalid_secret)
+#
+#     try:
+#         response = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
+#     except httpx.HTTPStatusError:
+#         print('\n\nЗапрос с некорректными ключами отклонен сервером, валидация негативного теста прошла успешно!')
 
-    Dd = Dadata(invalid_token, invalid_secret)
-
-    try:
-        response = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
-    except httpx.HTTPStatusError:
-        print('\n\nЗапрос с некорректными ключами отклонен сервером, валидация негативного теста прошла успешно!')
+def test_valid_geo_loc_by_address():
+    """"""
+    response = Dd.clean('address', 'МО, г. Видное, проспект Ленинского Комсомола, д. 1, корпус В')
+    assert response['geo_lat'] == '55.5499054'
+    assert response['geo_lon'] == '37.7189312'
 
 
 
