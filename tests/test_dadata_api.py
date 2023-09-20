@@ -1,5 +1,6 @@
 """Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для формирования тестовых
 запросов импортирована библиотека от разработчика сервиса - Dadata."""
+import httpx
 import requests
 from dadata import Dadata
 import pytest
@@ -26,14 +27,17 @@ Dd = Dadata(token, secret)
 def test_get_address_info_invalid_data():
     """Негативный тест с не валидными данными на проверку post-запроса к услуге "Разбор адреса из строки
     («стандартизация») api-сервиса https://dadata.ru/. Тестируется отправка и обработка post-запроса с некорретными
-    ключами token и secret. """
+    ключами token и secret. Валидация негативного теста считается успешной, если ответ сервера вызывает тип исключения
+    HTTPStatusError (сервер понял запрос, но отказывается его авторизовать). """
 
     Dd = Dadata(invalid_token, invalid_secret)
 
     try:
         response = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
-    except http_api_exception.HTTPStatus:
-        print('Ошибка! Проверьте корректность ключей пользователя для отправки запроса!')
+    except httpx.HTTPStatusError:
+        print('\n\nЗапрос с некорректными ключами отклонен сервером, валидация негативного теста прошла успешно!')
+
+
 
 
 
