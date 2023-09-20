@@ -6,7 +6,7 @@ import os
 
 dadata = DadataAddress(token=token, secret=secret)
 
-def test_get_address_info_successfull(address='Москва, ул. Мартеновская, д. 2'):
+def test_get_address_info_successfull(address='мск сухонская 11 89'):
 
     status, result = dadata.get_address_standartization(address=address)
     print(status)
