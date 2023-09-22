@@ -1,17 +1,14 @@
 """Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для формирования тестовых
 запросов импортирована библиотека Dadata от разработчика сервиса."""
-import http
 
-import httpx
-import requests
+
 from dadata import Dadata
-import pytest
-from requests import *
-import http_api_exception
 from settings.settings import *
+import pytest
+import httpx
+
 
 Dd = Dadata(token, secret)
-
 
 
 @duration_time_of_test
@@ -95,5 +92,6 @@ def test_get_user_balance_valid():
     момент тестирования."""
 
     response = Dd.get_balance()
+
     assert response == user_balance  # полученное от сервера значение баланса пользователя сравнивается с
-    # фактическим значением в переменной user_balance.
+                                     # фактическим значением в переменной user_balance.
