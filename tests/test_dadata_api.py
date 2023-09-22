@@ -81,16 +81,12 @@ def test_find_by_id_company_invalid():
     assert response == []
 
 
+@duration_time_of_test
 def test_get_user_balance_valid():
     """Позитивный тест проверки запроса получения баланса пользователя api-сервиса https://dadata.ru/. Валидация
     теста считается успешной, если ответ сервера содержит корректные данные о фактическом балансе пользователя на
     момент тестирования."""
 
     response = Dd.get_balance()
-    assert response == user_balance  # полученные от сервера балансе
-
-
-
-
-
-
+    assert response == user_balance  # полученное от сервера значение баланса пользователя сравнивается с
+    # фактическим значением в переменной user_balance.
