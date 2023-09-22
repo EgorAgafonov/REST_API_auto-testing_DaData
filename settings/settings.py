@@ -15,13 +15,13 @@ def duration_time_of_test(func):
 
     def wrapper(*args, **kwargs):
         start_time = time.time()
-        print(f"\nНачало выполнения теста: {round(start_time,3)}")
+        print(f"\n\nНачало выполнения теста: {time.asctime()}")
 
         func(*args, **kwargs)
 
         end_time = time.time()
-        print(f"\nОкончание выполнения теста: {round(end_time,3)}")
+        print(f"Окончание выполнения теста: {time.asctime()}")
         result = time.time() - start_time
-        print(f"\nОбщая продолжительность выполнения теста: {round(result,3)})")
+        print(f"Общая продолжительность выполнения теста: {round(result,3)} сек.")
 
     return wrapper
