@@ -1,12 +1,10 @@
 """Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для формирования тестовых
 запросов импортирована библиотека Dadata от разработчика сервиса."""
 
-
 from dadata import Dadata
 from settings.settings import *
 import pytest
 import httpx
-
 
 Dd = Dadata(token, secret)
 
@@ -58,16 +56,15 @@ def test_find_by_id_company_valid():
     полное наименование организации её и КПП соответствуют фактическим."""
 
     response = Dd.find_by_id('party', '7721581040')  # получаем список с одним элементом - словарем, включающим в себя
-                                                     # другие словари.
-
+    # другие словари.
 
     block_of_data = dict(response[0]).get('data')  # для получения данных о КПП организации обращаемся к элементу
-                                                   # списка и преобразуем его в словарь. Получаем значение ключа
-                                                   # 'data' (тоже словарь), содержащее сведения о КПП.
+    # списка и преобразуем его в словарь. Получаем значение ключа
+    # 'data' (тоже словарь), содержащее сведения о КПП.
 
     block_of_name = dict(block_of_data).get('name')  # для получения данных о полном наименовании организации с ОПФ
-                                                     # преобразуем словарь block_of_data и получаем значение ключа
-                                                     #'name'(тоже словарь), содержащее сведения о ПНО с ОПФ.
+    # преобразуем словарь block_of_data и получаем значение ключа
+    # 'name'(тоже словарь), содержащее сведения о ПНО с ОПФ.
 
     assert block_of_data['kpp'] == '770401001'  # получаем значение ключа 'kpp' и сравниваем его с ожидаемым(верным)
     assert block_of_name['full_with_opf'] == '''ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ДЕЙТА КЬЮ"'''
@@ -94,4 +91,14 @@ def test_get_user_balance_valid():
     response = Dd.get_balance()
 
     assert response == user_balance  # полученное от сервера значение баланса пользователя сравнивается с
-                                     # фактическим значением в переменной user_balance.
+    # фактическим значением в переменной user_balance.
+
+
+def requests_stress_testing(requests_quantity=30):
+    """"""
+    for i in range(requests_quantity):
+        response_address = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
+        response_balance = Dd.get_balance()
+        response_geolocate = Dd.suggest("fms_unit", "500-064")
+
+    assert response_address != []
