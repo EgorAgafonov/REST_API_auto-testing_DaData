@@ -94,11 +94,19 @@ def test_get_user_balance_valid():
     # фактическим значением в переменной user_balance.
 
 
-def requests_stress_testing(requests_quantity=30):
-    """"""
-    for i in range(requests_quantity):
-        response_address = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
-        response_balance = Dd.get_balance()
-        response_geolocate = Dd.suggest("fms_unit", "500-064")
+@duration_time_of_test
+def test_requests_stress_testing(requests_quantity=30):
+    """Тест работы api-сервиса DaData под нагрузкой. Проверятся скорость обработки запросов сервером по четырем
+    различным эндпоинтам и методам."""
 
-    assert response_address != []
+    # for i in range(requests_quantity):
+        # response_address = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
+        # response_balance = Dd.get_balance()
+        # response_fms_unit = Dd.suggest("fms_unit", "500-064")
+        # response_ip_address = Dd.iplocate('5.199.192.0')
+    response_geolocate = Dd.geolocate(name='address', lat=56.8376, lon=60.5989)
+
+    # assert response_address != []
+    # assert response_balance == user_balance
+    # assert response_fms_unit != []
+    print(f"\n{dict(response_geolocate[0]).get('unrestricted_value')}\n")
