@@ -21,7 +21,7 @@ def duration_time_of_test(func):
 
         end_time = time.time()
         print(f"Окончание выполнения теста: {time.asctime()}")
-        result = time.time() - start_time
+        result = end_time - start_time
         print(f"Общая продолжительность выполнения теста: {round(result,3)} сек.")
 
     return wrapper
