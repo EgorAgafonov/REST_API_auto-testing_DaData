@@ -5,6 +5,7 @@ from dadata import Dadata
 from settings.settings import *
 import pytest
 import httpx
+import requests
 
 Dd = Dadata(token, secret)
 
@@ -100,7 +101,7 @@ def test_requests_stress_testing(requests_quantity=30):
     обработки запросов сервером по пяти различным эндпоинтам и методам."""
 
     for i in range(requests_quantity):
-        response_address = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
+        response_address = Dd.clean('address', source='мск, Петровско-Разумовская аллея, д. 6')
         response_balance = Dd.get_balance()
         response_fms_unit = Dd.suggest("fms_unit", "500-064")
         response_ip_address = Dd.iplocate('5.199.192.0')
@@ -111,3 +112,4 @@ def test_requests_stress_testing(requests_quantity=30):
     assert response_fms_unit != []
     assert response_ip_address != []
     assert response_geolocate != []
+
