@@ -25,3 +25,9 @@ def duration_time_of_test(func):
         print(f"Общая продолжительность выполнения теста: {round(result,3)} сек.")
 
     return wrapper
+
+
+x = {"a": 1, "b": 2}
+y = {"b": 3, "c": 4}
+z = {**x, **y}
+print(z)
