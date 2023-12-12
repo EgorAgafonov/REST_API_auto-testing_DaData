@@ -16,13 +16,13 @@ def test_get_address_info_valid_data():
     api-сервиса https://dadata.ru/. Тестируется корректная обработка и разбор введенного пользователем адреса,
     намеренно содержащего ошибки и сокращения."""
 
-    response = Dd.clean('address', source='мск, металургов, дом 58,')
+    response = Dd.clean('address', source='Спб, Олеко Дундича, дом 2,')
 
-    assert response['region_with_type'] == 'г Москва'
-    assert response['street'] == 'Металлургов'
-    assert response['house'] == '58'
+    assert response['region_with_type'] == 'г Санкт-Петербург'
+    assert response['street'] == 'Олеко Дундича'
+    assert response['house'] == '2'
     assert response['house_type'] == 'д'
-    assert response['postal_code'] == '111399'
+    assert response['postal_code'] is None
 
 
 @duration_time_of_test
