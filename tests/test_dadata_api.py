@@ -17,6 +17,7 @@ def test_get_address_info_valid_data():
     намеренно содержащего ошибки и сокращения."""
 
     response = Dd.clean('address', source='мск, металургов, дом 58,')
+
     assert response['region_with_type'] == 'г Москва'
     assert response['street'] == 'Металлургов'
     assert response['house'] == '58'
