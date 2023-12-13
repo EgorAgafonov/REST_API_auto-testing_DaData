@@ -44,11 +44,14 @@ def test_get_address_info_invalid_data():
 def test_geo_loc_by_address_valid():
     """Позитивный тест с валидными данными на проверку корректного определения географических координат здания на
     основании указанного пользователем адреса. Валидация теста считается успешной, если полученные от сервиса значения
-    координат соответствует ожидаемым(фактическим) ."""
+    координат соответствует ожидаемым(фактическим)."""
 
-    response = Dd.clean('address', 'МО, г. Видное, проспект Ленинского Комсомола, д. 1, корпус В')
-    assert response['geo_lat'] == '55.5499054'
-    assert response['geo_lon'] == '37.7189312'
+    response = Dd.clean('address', 'Москва, ул. Тюрина, д. 1, строение 3')
+    response_lat = round(float(response['geo_lat']), 4)
+    response_lon = round(float(response['geo_lon']), 4)
+
+    assert response_lat == 55.6195
+    assert response_lon == 37.6735
 
 
 @duration_time_of_test
