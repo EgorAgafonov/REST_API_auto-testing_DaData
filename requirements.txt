@@ -1,0 +1,4 @@
+pytest~=7.4.3
+httpx~=0.25.0
+dadata~=21.10.1
+python-dotenv~=1.0.0
