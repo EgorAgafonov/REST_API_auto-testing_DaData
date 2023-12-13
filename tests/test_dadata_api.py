@@ -101,6 +101,7 @@ def test_get_user_balance_valid():
     # фактическим значением в переменной user_balance.
 
 
+@pytest.mark.skip(reason='Тест генерирует 30 платных запросов, использовать в коллекции по необходимости.')
 @duration_time_of_test
 def test_requests_stress_testing(requests_quantity=30):
     """Тест работы api-сервиса DaData под нагрузкой. С помощью декоратора @duration_time_of_test проверятся скорость
@@ -113,9 +114,10 @@ def test_requests_stress_testing(requests_quantity=30):
         response_ip_address = Dd.iplocate('5.199.192.0')
         response_geolocate = Dd.geolocate(name='address', lat=56.8376, lon=60.5989)
 
-    assert response_address != []
-    assert response_balance == user_balance
-    assert response_fms_unit != []
-    assert response_ip_address != []
-    assert response_geolocate != []
-
+        assert response_address['result'] == 'г Москва, аллея Петровско-Разумовская, д 6'
+        assert response_balance == user_balance
+        assert response_fms_unit[1].get('value') == ('ТП В Г. МОСКОВСКИЙ ОУФМС РОССИИ ПО МОСКОВСКОЙ ОБЛ. В ЛЕНИНСКОМ '
+                                                     'РАЙОНЕ')
+        assert response_ip_address['value'] == 'Свердловская обл, г Кировград'
+        assert response_geolocate[0].get('unrestricted_value') == ("620014, Свердловская обл, г Екатеринбург, пр-кт "
+                                                                   "Ленина, д 26")
