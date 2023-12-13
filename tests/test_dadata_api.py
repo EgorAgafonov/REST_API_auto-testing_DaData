@@ -1,11 +1,10 @@
-"""Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для формирования тестовых
-запросов импортирована библиотека Dadata от разработчика сервиса."""
+"""Коллекция авто-тестов для проверки отправки запросов на REST API сервис https://dadata.ru/. Для отправки тестовых
+запросов импортирована готовая API библиотека Dadata от разработчика сервиса."""
 
 from dadata import Dadata
 from settings.settings import *
 import pytest
 import httpx
-import requests
 
 Dd = Dadata(token, secret)
 
@@ -27,10 +26,10 @@ def test_get_address_info_valid_data():
 
 @duration_time_of_test
 def test_get_address_info_invalid_data():
-    """Негативный тест с не валидными данными на проверку post-запроса к услуге "Разбор адреса из строки
-    («стандартизация») api-сервиса https://dadata.ru/. Тестируется отправка и обработка post-запроса с некорректными
-    ключами token и secret. Валидация негативного теста считается успешной, если ответ сервера вызывает тип исключения
-    HTTPStatusError (сервер понял запрос, но отказывается его авторизовать). """
+    """Негативный тест проверки post-запроса к услуге "Разбор адреса из строки («стандартизация») api-сервиса
+    https://dadata.ru/. Тестируется отправка и обработка post-запроса с некорректными ключами token и secret.
+    Валидация негативного теста считается успешной, если ответ сервера вызывает тип исключения
+    HTTPStatusError (сервер понял запрос, но отказывается его авторизовать)."""
 
     Dd = Dadata(invalid_token, invalid_secret)
 
@@ -38,6 +37,10 @@ def test_get_address_info_invalid_data():
         response = Dd.clean('address', source='мск, перовская, дом 13, корпус 1')
     except httpx.HTTPStatusError:
         print('\n\nЗапрос с некорректными ключами отклонен сервером, валидация негативного теста прошла успешно!')
+    else:
+        assert response != {}
+        print(f"\nОшибка! Сервер принял запрос с некорректными ключами и сформировал ответ. Создать баг-репорт и "
+              f"отразить ошибку в системе отслеживания.")
 
 
 @duration_time_of_test
@@ -101,7 +104,7 @@ def test_get_user_balance_valid():
     # фактическим значением в переменной user_balance.
 
 
-@pytest.mark.skip(reason='Тест генерирует 30 платных запросов, использовать в коллекции по необходимости.')
+@pytest.mark.skip(reason='Тест генерирует 30 платных запросов, запускать в комплекте по необходимости.')
 @duration_time_of_test
 def test_requests_stress_testing(requests_quantity=30):
     """Тест работы api-сервиса DaData под нагрузкой. С помощью декоратора @duration_time_of_test проверятся скорость
