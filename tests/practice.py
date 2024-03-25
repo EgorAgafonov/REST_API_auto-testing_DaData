@@ -13,12 +13,28 @@ class DadataAPI:
 
     def email_id_company(self, query: str):
 
-        data = MultipartEncoder(fields={"query": query})
-        headers = {'Content-Type': 'application/json',
-                   'Accept': 'application/json',
-                   'Authorization': token,
-                   'X-Secret': secret}
+        data = MultipartEncoder(fields={"query": query}, encoding="UTF-8")
+
+        headers = {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Authorization": f"Token {token}",
+        }
 
         response = requests.post(self.base_url, headers=headers, data=data)
         status = response.status_code
-        result
+        result = ""
+        try:
+            result = response.json()
+        except json.JSONDecodeError:
+            result = response.text
+
+        return status, result
+
+
+dd = DadataAPI()
+status, result = dd.email_id_company(query="info@dadata.ru")
+
+print(status)
+print(result)
+
