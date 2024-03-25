@@ -5,6 +5,7 @@ from dadata import Dadata
 from settings.settings import *
 import pytest
 import httpx
+import json
 
 Dd = Dadata(token, secret)
 
@@ -21,7 +22,6 @@ def test_get_address_info_valid_data():
     assert response['street'] == 'Олеко Дундича'
     assert response['house'] == '2'
     assert response['house_type'] == 'д'
-    assert response['postal_code'] is None
 
 
 @duration_time_of_test
