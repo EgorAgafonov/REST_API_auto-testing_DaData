@@ -9,31 +9,30 @@ import json
 class DadataAPI:
 
     def __init__(self):
-        self.base_url = "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findByEmail/company"
+        self.base_url = "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
 
-    def email_id_company(self, query: str):
+    def find_company(self, query: str):
 
-        data = MultipartEncoder(fields={"query": query}, encoding="UTF-8")
+        data = MultipartEncoder(fields={"query": query}, encoding="utf-8")
 
         headers = {
-            "Content-type": "application/json",
+            "Content-type": data.content_type,
             "Accept": "application/json",
-            "Authorization": f"Token {token}",
-        }
+            "Authorization": f"Token {token}"}
 
         response = requests.post(self.base_url, headers=headers, data=data)
-        status = response.status_code
-        result = ""
+        stat = response.status_code
+        res = ''
         try:
-            result = response.json()
+            res = response.json()
         except json.JSONDecodeError:
-            result = response.text
+            res = response.text
 
-        return status, result
+        return stat, res
 
 
 dd = DadataAPI()
-status, result = dd.email_id_company(query="info@dadata.ru")
+status, result = dd.find_company(query="7707083893")
 
 print(status)
 print(result)
