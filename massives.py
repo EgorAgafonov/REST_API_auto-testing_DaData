@@ -9,6 +9,14 @@
 # else:
 #     print(f"Слова '{word}' в списке элементов нет.")
 
-keys = ['name', 'surname', 'age']
-values = ['John', 'Smith', 26]
-print(dict(zip(keys, values)))
+# keys = ['name', 'surname', 'age']
+# values = ['John', 'Smith', 26]
+# print(dict(zip(keys, values)))
+
+dictionary = {}
+print(id(dictionary))
+dictionary['name'] = 'Иван'
+second_dict = dictionary.copy()
+second_dict.update(surname='Павлов')
+print(dictionary)
+print(second_dict)
