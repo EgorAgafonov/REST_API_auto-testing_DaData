@@ -1,5 +1,6 @@
 from operator import itemgetter, attrgetter
 
+
 # 'the largest world', "world's famous toy"
 
 # word = 'world'
@@ -27,16 +28,23 @@ from operator import itemgetter, attrgetter
 
 
 class Capital:
-    def __init__(self, name, population):
+    def __init__(self, name, popul):
         self.name = name
-        self.population = population
+        self.popul = popul
 
     def __repr__(self):
-        return repr((self.name, self.population))
+        return repr((self.name, self.popul))
 
 
-population = [('Pekin', 2234441233), ('Moscow', 123331233), ('London', 300123), ('Amsterdam', 3312333)]
-res = sorted(population, key=lambda capital: capital[1], reverse=True)
+list_of_cap = [
+    Capital('Pekin', 2234441233),
+    Capital('Moscow', 123331233),
+    Capital('London', 300123),
+    Capital('Amsterdam', 3312333)
+]
 
-# res = sorted(population, key=attrgetter('value'))
+res = sorted(list_of_cap, key=lambda capital: capital.popul, reverse=True)
+# res = sorted(list_of_cap, key=attrgetter('popul'), reverse=True)
+# res = sorted(list_of_cap, key=attrgetter('name'))
+
 print(res)
