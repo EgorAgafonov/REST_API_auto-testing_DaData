@@ -17,6 +17,6 @@ dictionary = {}
 print(id(dictionary))
 dictionary['name'] = 'Иван'
 second_dict = dictionary.copy()
-second_dict.update(surname='Павлов')
+second_dict.update(surname='Павлов', age=34)
 print(dictionary)
 print(second_dict)
