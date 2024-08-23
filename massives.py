@@ -2,22 +2,22 @@ from operator import itemgetter, attrgetter
 
 # 1. Поиск совпадения в строке по шаблону (word):
 
-word = 'world'
-list_of_words = "the world isn't enough"
-result = list_of_words.index(word)
-print(result)
-
-if 'world' in list_of_words:
-    print(f"Слово '{word}' содержится в списке элементов.")
-else:
-    print(f"Слова '{word}' в списке элементов нет.")
-
-# 2. Объединение(распаковка - zip) значений разных списков в один словарь:
-
-keys = ['name', 'surname', 'age']
-values = ['John', 'Smith', 26]
-
-print(dict(zip(keys, values)))
+# word = 'world'
+# list_of_words = "the world isn't enough"
+# result = list_of_words.index(word)
+# print(result)
+#
+# if 'world' in list_of_words:
+#     print(f"Слово '{word}' содержится в списке элементов.")
+# else:
+#     print(f"Слова '{word}' в списке элементов нет.")
+#
+# # 2. Объединение(распаковка - zip) значений разных списков в один словарь:
+#
+# keys = ['name', 'surname', 'age']
+# values = ['John', 'Smith', 26]
+#
+# print(dict(zip(keys, values)))
 
 # 3. Добавление и удаление ключей словаря:
 
@@ -54,3 +54,8 @@ print(dict(zip(keys, values)))
 # res = sorted(list_of_cap, key=attrgetter('name'))
 #
 # print(res)
+
+rooms = {"Pink": "Rm 403", "Space": "Rm 201", "Quail": "Rm 500", "Lime": "Rm 503"}
+sorted_items = sorted(rooms.items())
+res = dict(sorted_items)
+print(res)
