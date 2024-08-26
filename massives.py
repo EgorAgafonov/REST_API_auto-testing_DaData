@@ -59,16 +59,22 @@ from operator import itemgetter, attrgetter
 # 4. Сортировка словаря с различными типами данных:
 
 # 4.1 Сортировка словаря только по ключу с помощью функции sorted:
-rooms = {"Pink": "Rm 403", "Space": "Rm 201", "Quail": "Rm 500", "Lime": "Rm 503"}
-sorted_items = sorted(rooms.items())
-sorted_items = dict(sorted_items)
+# rooms = {"Pink": "Rm 403", "Space": "Rm 201", "Quail": "Rm 500", "Lime": "Rm 503"}
+# sorted_items = sorted(rooms.items())
+# sorted_items = dict(sorted_items)
 
 # 4.2 Сортировка словаря по ключу или по значению ключа с помощью функции sorted и её аргумента key, принимающим
 # анонимную lambda функцию:
-res = dict(sorted(rooms.items(), key=lambda item: item[0]))
-print(res)
+# res = dict(sorted(rooms.items(), key=lambda item: item[0]))
+# print(res)
 
 # 4.3 Сортировка словаря по ключу или по значению ключа с помощью функции sorted и её аргумента key, принимающим
 # функции itemgetter / attrgetter из модуля operator:
-res = dict(sorted(rooms.items(), key=itemgetter(1)))
+# res = dict(sorted(rooms.items(), key=itemgetter(1)))
+# print(res)
+
+#
+
+a = 'abcdefghijkl'
+res = list(a)
 print(res)
