@@ -1,4 +1,5 @@
 from operator import itemgetter, attrgetter
+import random
 
 # 1. Поиск совпадения в строке по шаблону (word):
 
@@ -73,8 +74,14 @@ from operator import itemgetter, attrgetter
 # res = dict(sorted(rooms.items(), key=itemgetter(1)))
 # print(res)
 
-#
 
+# 5.1 Сортировка списка со строкой, разбитой на буквенные символы:
 a = 'abcdefghijkl'
-res = list(a)
-print(res)
+list_of_chars = list(a)  # ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
+random_chars_list = []
+for i in list_of_chars:
+    random_char = random.choice(list_of_chars)
+    random_chars_list.append(random_char)
+print(random_chars_list)
+print(sorted(random_chars_list, reverse=False))
+
